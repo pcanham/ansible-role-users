@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/singleplatform-eng/ansible-users.svg?branch=master)](https://travis-ci.org/singleplatform-eng/ansible-users)
-
 # ansible-users
 
 Role to manage users on a system.
