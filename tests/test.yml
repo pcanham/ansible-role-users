@@ -2,6 +2,7 @@
 - hosts: localhost
   remote_user: root
   vars:
+    ansible_python_interpreter: /usr/bin/python3
     groups_to_create:
       - name: ansibletestgroup
         gid: 4000
@@ -23,6 +24,7 @@
 - hosts: localhost
   remote_user: root
   vars:
+    ansible_python_interpreter: /usr/bin/python3
     users:
       - name: Ansible Test User2
         username: ansibletestuser2
@@ -42,6 +44,7 @@
 - hosts: localhost
   remote_user: root
   vars:
+    ansible_python_interpreter: /usr/bin/python3
     users_create_per_user_group: false
     users_group: ansibletestgroup
     groups_to_create:
@@ -66,6 +69,7 @@
 - hosts: localhost
   remote_user: root
   vars:
+    ansible_python_interpreter: /usr/bin/python3
     users_create_per_user_group: false
     users_group: users
     users:
@@ -87,6 +91,7 @@
 - hosts: localhost
   remote_user: root
   vars:
+    ansible_python_interpreter: /usr/bin/python3
     users:
       - name: Ansible Test User5
         username: ansibletestuser5
