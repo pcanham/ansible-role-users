@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/pcanham/ansible-role-users.svg?branch=main)](https://travis-ci.org/pcanham/ansible-role-users)
+
 # ansible-users
 
 Role to manage users on a system.
