@@ -42,6 +42,7 @@
     key: "{{ item.ssh_key | join('\n') }}"
     path: "{{ item.home | default('/home/' + item.username) }}/{{ authorized_keys_file }}"
     exclusive: "{{ item.ssh_key_exclusive | default('yes' if users_ssh_key_exclusive else 'no') }}"
+  when: item.ssh_key is defined
   with_items: "{{ users }}"
   tags: ["users", "configuration"]
 
