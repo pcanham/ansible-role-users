@@ -1,13 +1,15 @@
 ---
 - name: Creating groups
-  group:
+  become: yes
+  ansible.builtin.group:
     name: "{{ item.name }}"
     gid: "{{ item.gid | default(omit) }}"
   with_items: "{{ groups_to_create }}"
   tags: ["users", "groups", "configuration"]
 
 - name: Per-user group creation
-  group:
+  become: yes
+  ansible.builtin.group:
     name: "{{ item.username }}"
     gid: "{{ item.gid | default(item.uid) | default(omit) }}"
   with_items: "{{ users }}"
@@ -15,7 +17,8 @@
   tags: ["users", "configuration"]
 
 - name: User creation
-  user:
+  become: yes
+  ansible.builtin.user:
     name: "{{ item.username }}"
     group: "{{ item.group | default(item.username if users_create_per_user_group else users_group) }}"
     # empty string removes user from all secondary groups
@@ -33,7 +36,8 @@
   tags: ["users", "configuration"]
 
 - name: SSH keys
-  authorized_key:
+  become: yes
+  ansible.builtin.authorized_key:
     user: "{{ item.username }}"
     key: "{{ item.ssh_key | join('\n') }}"
     path: "{{ item.home | default('/home/' + item.username) }}/{{ authorized_keys_file }}"
@@ -42,7 +46,8 @@
   tags: ["users", "configuration"]
 
 - name: Setup user profiles
-  blockinfile:
+  become: yes
+  ansible.builtin.blockinfile:
     block: "{{ item.profile }}"
     path: "{{ item.home | default('/home/' + item.username) }}/.profile"
     owner: "{{ item.username }}"
@@ -53,7 +58,8 @@
   with_items: "{{ users }}"
 
 - name: Deleted user removal
-  user:
+  become: yes
+  ansible.builtin.user:
     name: "{{ item.username }}"
     state: absent
     remove: "{{ item.remove | default(omit) }}"
@@ -62,7 +68,8 @@
   tags: ["users", "configuration"]
 
 - name: Deleted per-user group removal
-  group:
+  become: yes
+  ansible.builtin.group:
     name: "{{ item.username }}"
     state: absent
   with_items: "{{ users_deleted }}"
